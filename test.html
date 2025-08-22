@@ -1,76 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Minecraft Style Pagoda</title>
-  <style>
-    body { margin: 0; }
-    canvas { display: block; }
-  </style>
-</head>
-<body>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/examples/js/controls/OrbitControls.js"></script>
-<script>
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xbfd1e5);
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+<html>
+  <head>
+    <title>Minecraft-like Pagoda</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-entity
+        position="0 1.6 0"
+        camera
+        look-controls
+        wasd-controls="fly: true">
+      </a-entity>
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-  scene.add(ambientLight);
-  const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
-  dirLight.position.set(5, 10, 7.5);
-  scene.add(dirLight);
+      <a-sky color="#87CEEB"></a-sky>
 
-  const block = 1;
-  function addCube(x, y, z, color) {
-    const geometry = new THREE.BoxGeometry(block, block, block);
-    const material = new THREE.MeshLambertMaterial({ color });
-    const cube = new THREE.Mesh(geometry, material);
-    cube.position.set(x, y, z);
-    scene.add(cube);
-  }
+      <a-grid-floor
+        height="100"
+        width="100"
+        color="#8BC34A">
+      </a-grid-floor>
 
-  function buildPagoda(levels) {
-    let y = 0;
-    let size = 7;
-    for (let i = 0; i < levels; i++) {
-      for (let x = -size / 2; x < size / 2; x++) {
-        for (let z = -size / 2; z < size / 2; z++) {
-          addCube(x, y, z, 0x8B4513);
-        }
-      }
-      y += 1;
-      size -= 2;
-      for (let x = -size / 2 - 1; x < size / 2 + 1; x++) {
-        for (let z = -size / 2 - 1; z < size / 2 + 1; z++) {
-          addCube(x, y, z, 0x556B2F);
-        }
-      }
-      y += 1;
-    }
-  }
+      <a-box
+        position="0 0.5 0"
+        width="10"
+        height="1"
+        depth="10"
+        color="#A0522D">
+      </a-box>
 
-  buildPagoda(4);
-  camera.position.set(10, 10, 10);
-  controls.update();
+      <a-cylinder
+        position="0 2.5 0"
+        radius="3"
+        height="4"
+        color="#D2B48C">
+      </a-cylinder>
 
-  function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
-  }
-  animate();
+      <a-pyramid
+        position="0 5 0"
+        radius="6"
+        height="1"
+        rotation="0 45 0"
+        color="#B22222">
+      </a-pyramid>
 
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-</script>
-</body>
+      <a-pyramid
+        position="0 5.5 0"
+        radius="5"
+        height="1"
+        rotation="0 45 0"
+        color="#B22222">
+      </a-pyramid>
+
+      <a-pyramid
+        position="0 6 0"
+        radius="4"
+        height="1"
+        rotation="0 45 0"
+        color="#B22222">
+      </a-pyramid>
+
+      <a-pyramid
+        position="0 6.5 0"
+        radius="3"
+        height="1"
+        rotation="0 45 0"
+        color="#B22222">
+      </a-pyramid>
+
+      <a-pyramid
+        position="0 7 0"
+        radius="2"
+        height="1"
+        rotation="0 45 0"
+        color="#B22222">
+      </a-pyramid>
+
+    </a-scene>
+  </body>
 </html>
